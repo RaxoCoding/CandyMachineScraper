@@ -18,6 +18,7 @@ async function getScript(url, _callback) {
                 if (scriptSrcs[i].match(file_pattern)) {
                     wget({
                             url: url + scriptSrcs[i],
+                            dry: true,
                             timeout: 2000 // duration to wait for request fulfillment in milliseconds, default is 2 seconds
                         },
                         async function(error, response, body) {
