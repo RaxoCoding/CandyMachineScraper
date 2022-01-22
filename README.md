@@ -2,7 +2,7 @@
 
 Grabs Candy Machine ID of any v1 or v2 candy machine websites.
 
-# Instalation 
+# Installation 
 
 `npm i candymachinescraper --save`
 
