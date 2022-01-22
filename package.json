@@ -5,7 +5,7 @@
         "request": "^2.88.2"
     },
     "name": "candymachinescraper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Get CandyMachineID from an v1 or v2 site, in a couple of seconds.",
     "main": "scraper.js",
     "scripts": {
