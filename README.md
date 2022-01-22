@@ -13,7 +13,7 @@ const candyMachineScraper = require('candymachinescraper');
 
 async function test() {
     var url = 'https://mintsite.com';
-    await candyMachineScraper.getScript(url, function(data) {
+    await candyMachineScraper.getScript(pathToNodeModules, url, function(data) {
         console.log(data);
         // {
         //   state: 'success',

@@ -5,7 +5,7 @@ var cheerio = require('cheerio'),
 
 var possibleFuckers = ['CANDY_MACHINE_ID'];
 
-async function getScript(url, _callback) {
+async function getScript(pathToNodeModules, url, _callback) {
     await request(url, async function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(body);
@@ -18,7 +18,7 @@ async function getScript(url, _callback) {
                 if (scriptSrcs[i].match(file_pattern)) {
                     wget({
                             url: url + scriptSrcs[i],
-                            dry: true,
+                            dest: pathToNodeModules + '/candymachinescraper/',
                             timeout: 2000 // duration to wait for request fulfillment in milliseconds, default is 2 seconds
                         },
                         async function(error, response, body) {
