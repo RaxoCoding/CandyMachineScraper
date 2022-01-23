@@ -1,3 +1,4 @@
+[![npm version](https://img.shields.io/npm/v/candymachinescraper.svg?style=flat-square)](https://www.npmjs.org/package/candymachinescraper)
 [![npm downloads](https://img.shields.io/npm/dt/candymachinescraper.svg?style=flat-square)](http://npm-stat.com/charts.html?package=candymachinescraper)
 
 # What Does it do?
