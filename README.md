@@ -1,3 +1,5 @@
+[![npm downloads](https://img.shields.io/npm/dt/candymachinescraper.svg?style=flat-square)](http://npm-stat.com/charts.html?package=candymachinescraper)
+
 # What Does it do?
 
 Grabs Candy Machine ID of any v1 or v2 candy machine websites.
