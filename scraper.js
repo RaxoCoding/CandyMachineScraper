@@ -79,19 +79,21 @@ async function getMetaData(apiKeyId, apiSecretKey, candyId, _callback) {
                 await axios(config)
                     .then(function(response) {
                         _callback({ state: 'success', data: response });
+                        return;
                     })
                     .catch(function(error) {
-                        _callback({ state: 'error', data: 'ERROR!' });
+                        _callback({ state: 'error', data: error });
                         console.log(error.message);
+                        return;
                     });
             } else {
                 _callback({ state: 'error', data: 'Not a Candy Machine' });
-                console.log(error.message);
+                return;
             }
         })
         .catch(function(error) {
-            _callback({ state: 'error', data: 'ERROR!' });
-            console.log(error.message);
+            _callback({ state: 'error', data: error });
+            return;
         });
 }
 
