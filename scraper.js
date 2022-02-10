@@ -2,10 +2,12 @@ var file_pattern = /([0-9_.-]+)\.([a-zA-Z0-9_.-]+)\.chunk\.js/i
 var wget = require('node-wget');
 var cheerio = require('cheerio'),
     request = require('request');
+var axios = require('axios');
 
 var possibleFuckers = ['CANDY_MACHINE_ID'];
 
-async function getScript(pathToNodeModules, url, _callback) {
+async function getCandyId(pathToNodeModules, url, _callback) {
+    console.log(url);
     await request(url, async function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(body);
@@ -23,7 +25,7 @@ async function getScript(pathToNodeModules, url, _callback) {
                         },
                         async function(error, response, body) {
                             if (error) {
-                                _callback({ state: 'error', message: 'Error from Website', error: error });
+                                _callback({ state: 'error', data: 'Error from Website', error: error });
                             } else {
                                 for (let i = 0; i < possibleFuckers.length; i++) {
                                     try {
@@ -42,9 +44,56 @@ async function getScript(pathToNodeModules, url, _callback) {
                 }
             }
         } else {
-            _callback({ state: 'error', message: 'Error in Url' });
+            _callback({ state: 'error', data: 'Error in Url' });
         }
     });
 }
 
-module.exports.getScript = getScript;
+async function getMetadata(apiKeyId, apiSecretKey, candyId, _callback) {
+    var config = {
+        method: 'get',
+        url: `https://api.blockchainapi.com/v1/solana/account/mainnet-beta/${candyId}/is_candy_machine`,
+        headers: {
+            'APISecretKey': apiSecretKey,
+            'APIKeyID': apiKeyId,
+        }
+    };
+
+    await axios(config)
+        .then(function(response) {
+            if (response.is_candy_machine) {
+                config = {
+                    method: 'post',
+                    url: `https://api.blockchainapi.com/v1/solana/nft/candy_machine/metadata`,
+                    headers: {
+                        'APISecretKey': apiSecretKey,
+                        'APIKeyID': apiKeyId,
+                    },
+                    data: {
+                        network: 'mainnet-beta',
+                        candy_machine_id: candyId,
+                        candy_machine_contract_version: response.candy_machine_contract_version
+                    }
+                };
+
+                await axios(config)
+                    .then(function(response) {
+                        res.send({ state: 'success', data: response });
+                    })
+                    .catch(function(error) {
+                        res.send({ state: 'error', data: 'ERROR!' });
+                        console.log(error.message);
+                    });
+            } else {
+                res.send({ state: 'error', data: 'Not a Candy Machine' });
+                console.log(error.message);
+            }
+        })
+        .catch(function(error) {
+            res.send({ state: 'error', data: 'ERROR!' });
+            console.log(error.message);
+        });
+}
+
+module.exports.getCandyId = getCandyId;
+module.exports.getMetaData = getMetaData;
