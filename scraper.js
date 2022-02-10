@@ -49,7 +49,7 @@ async function getCandyId(pathToNodeModules, url, _callback) {
     });
 }
 
-async function getMetadata(apiKeyId, apiSecretKey, candyId, _callback) {
+async function getMetaData(apiKeyId, apiSecretKey, candyId, _callback) {
     var config = {
         method: 'get',
         url: `https://api.blockchainapi.com/v1/solana/account/mainnet-beta/${candyId}/is_candy_machine`,
