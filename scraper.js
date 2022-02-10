@@ -60,7 +60,7 @@ async function getMetadata(apiKeyId, apiSecretKey, candyId, _callback) {
     };
 
     await axios(config)
-        .then(function(response) {
+        .then(async function(response) {
             if (response.is_candy_machine) {
                 config = {
                     method: 'post',
