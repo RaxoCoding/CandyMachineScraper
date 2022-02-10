@@ -7,7 +7,6 @@ var axios = require('axios');
 var possibleFuckers = ['CANDY_MACHINE_ID'];
 
 async function getCandyId(pathToNodeModules, url, _callback) {
-    console.log(url);
     await request(url, async function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(body);
